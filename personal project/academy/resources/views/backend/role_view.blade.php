@@ -12,14 +12,14 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Add Status</h5>
+              <h5 class="card-title">Add Role</h5>
               <div class="card">
         
-              <form action="{{route('status.add')}}" method="post" class="row g-3">
+              <form action="{{route('role.add')}}" method="post" class="row g-3">
                 @csrf
                 <div class="col-md-12 col-lg-12">
-                  <label for="inputName5" class="form-label">Status Name</label>
-                  <input type="text" name="name" value="{{old('name')}}" class="form-control"  placeholder="Status Name" id="inputName5">
+                  <label for="inputName5" class="form-label">Role Name</label>
+                  <input type="text" name="name" value="{{old('name')}}" class="form-control"  placeholder="Role Name" id="inputName5">
                   <p style="font-weight:bold; color:red; font-size:12px;">
                   @error('name')
                     {{$message}}
@@ -28,7 +28,7 @@
                 </div>
                 
                 <div class="text-left">
-                  <button type="submit" class="btn btn-primary">Add Status</button>
+                  <button type="submit" class="btn btn-primary">Add Role</button>
                 </div>
               </form><!-- End Multi Columns Form -->
 
@@ -44,7 +44,7 @@
         <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Manage Status</h5>
+              <h5 class="card-title">Manage Role</h5>
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
@@ -57,21 +57,21 @@
                 </thead>
                 
                 <tbody>
-                @foreach($statuses as $status)
+                @foreach($roles as $role)
                   <tr>
-                    <td>{{$status->name}}</td>
+                    <td>{{$role->name}}</td>
                 
                     <td>
-                    <a href="{{route('status.edit', $status->id)}}">
+                    <a href="{{route('role.edit', $role->id)}}">
                     <i  class="fa fa-edit text-primary"></i>
                     </a>
-                    <a type="button" class="" data-bs-toggle="modal" data-bs-target="#status_{{$status->id}}">
+                    <a href="{{route('role.permission', $role->id)}}" class="badge bg-primary text-white">Set Permission</a>
+                    <a type="button" class="" data-bs-toggle="modal" data-bs-target="#role_{{$role->id}}">
                     <i  class="fa fa-trash text-danger"></i>
                     </a>
                     </td>
-                    
+                    @include('backend.modals.role')
                 </tr>
-                @include('backend.modals.status')
                 @endforeach
                 </tbody>
               

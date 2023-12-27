@@ -25,6 +25,7 @@
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Phone Number</th>
+                    <th>Assigned Applications</th>
                     <th>Block Status</th>
                     <th>Action</th>
                   </tr>
@@ -36,6 +37,7 @@
                     <td>{{$user->last_name}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->phone}}</td>
+                    <td><a href="{{route('admin.counsellor.applications', $user->id)}}" class="badge bg-primary text-white"><span >View Applications</span></a></td>
                     <td>
                       @if($user->block == null || $user->block == "0")
                       <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Unblocked</span>

@@ -1,6 +1,6 @@
 
 
-@extends('backend.app')
+@extends('counsellor.app')
 
 @section('content')
   
@@ -70,7 +70,7 @@
             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
               <!-- Profile Edit Form -->
-              <form method="post" action="{{route('admin.profile.update', Auth::user()->id)}}">
+              <form method="post" action="{{route('counsellor.profile.update', Auth::user()->id)}}">
                 @csrf
                 <div class="row mb-3">
                   <label for="fullName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
@@ -118,7 +118,7 @@
 
             <div class="tab-pane fade pt-3" id="profile-change-password">
               <!-- Change Password Form -->
-              <form method="post" action="{{route('admin.password.update')}}">
+              <form method="post" action="{{route('counsellor.password.update')}}">
                 @csrf
                 <div class="row mb-3">
                   <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>

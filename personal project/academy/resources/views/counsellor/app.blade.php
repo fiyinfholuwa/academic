@@ -54,7 +54,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="{{route('admin.dashboard')}}" class="logo d-flex align-items-center">
+      <a href="{{route('counsellor.dashboard')}}" class="logo d-flex align-items-center">
         <img style="height:100px; width:150px" src="{{asset('backend/assets/img/logo.svg')}}" alt="">
         <!-- <span class="d-none d-lg-block">NiceAdmin</span> -->
       </a>
@@ -71,26 +71,25 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">{{count($consultations)}}</span>
+            <span class="badge bg-success badge-number">{{count($unread_messages)}}</span>
+            
           </a><!-- End Messages Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+          <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
-              You have {{count($consultations)}} new consultation alert
-              <a href="{{route('consultation.all')}}"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            @if(count($consultations) > 0)
-            @foreach($consultations as $consultation)
             <li class="message-item">
               <a href="#">
                 <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
                 <div>
-                  <h4>{{$consultation->first_name}} {{$consultation->last_name}}</h4>
-                  <p>i want to get consultation, please respond promptly, thank you.</p>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
                   <p>4 hrs. ago</p>
                 </div>
               </a>
@@ -99,17 +98,40 @@
               <hr class="dropdown-divider">
             </li>
 
-            @endforeach
-            <li class="dropdown-footer">
-              <a href="{{route('consultation.all')}}">Show all messages</a>
+            <li class="message-item">
+              <a href="#">
+                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
             </li>
-            @else
-            <li class="dropdown-footer">
-              <a href="#">No Messages yet</a>
+            <li>
+              <hr class="dropdown-divider">
             </li>
-            @endif
 
-          </ul><!-- End Messages Dropdown Items -->
+            <li class="message-item">
+              <a href="#">
+                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul> -->
+          <!-- End Messages Dropdown Items -->
 
         </li><!-- End Messages Nav -->
 
@@ -117,12 +139,12 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Super Admin</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">Counsellor</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Super Admin</h6>
+              <h6>Counsellor</h6>
               <!-- <span>Web Designer</span> -->
             </li>
             <li>
@@ -163,137 +185,31 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
   <li class="nav-item">
-    <a class="nav-link " href="{{route('admin.dashboard')}}">
+    <a class="nav-link " href="{{route('counsellor.dashboard')}}">
       <i class="bi bi-grid"></i>
-      <span>Dashboard </span>
+      <span>Dashboard</span>
     </a>
   </li><!-- End Dashboard Nav -->
 
-
+  
   <li class="nav-item">
-    <a class="nav-link collapsed {{ request()->routeIs('application.view') || request()->routeIs('application.all') ? ' active' : '' }}" 
-       data-bs-target="#charts-nav11" 
-       data-bs-toggle="collapse" 
-       href="#">
-       @if(in_array('add_application', $permissions) || in_array('manage_application', $permissions)  || Auth::user()->user_type== 2)
-        <i class="fab fa-windows"></i><span>Manage Applications</span><i class="bi bi-chevron-down ms-auto"></i>
-        @endif
-    </a>
-    <ul id="charts-nav11" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      @if(in_array('add_application', $permissions) || Auth::user()->user_type== 2)
-        <li class="{{ request()->routeIs('application.view') ? 'active' : '' }}">
-            <a href="{{ route('application.view') }}">
-                <i class="bi bi-circle"></i><span>Add Application</span>
-            </a>
-        </li>
-        @endif
-        @if(in_array('manage_application', $permissions) || Auth::user()->user_type== 2)
-        <li class="{{ request()->routeIs('application.all') ? 'active' : '' }}">
-            <a href="{{ route('application.all') }}">
-                <i class="bi bi-circle"></i><span>All Applications</span>
-            </a>
-        </li>
-        @endif
-    </ul>
-</li><!-- End Charts Nav -->
-
-@if(in_array('manage_consultation', $permissions) || Auth::user()->user_type== 2)
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="{{route('consultation.all')}}">
-      <i class="fas fa-user-cog	"></i>
-      <span>Consultations</span>
+    <a class="nav-link collapsed" href="{{route('counsellor.application.assigned')}}">
+      <i class="fab fa-windows"></i>
+      <span>Assigned Applications</span>
     </a>
   </li><!-- End Profile Page Nav -->
-@endif
 
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#charts-nav1" data-bs-toggle="collapse" href="#">
-    @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
-      <i class="fas fa-users"></i><span>Manage Users</span><i class="bi bi-chevron-down ms-auto"></i>
-      @endif
-    </a>
-    <ul id="charts-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-    @if(in_array('add_user', $permissions) || Auth::user()->user_type== 2)
-      <li>
-        <a href="{{route('user.add.view')}}">
-          <i class="bi bi-circle"></i><span>Add User</span>
-        </a>
-      </li>
-      @endif
-
-      @if(in_array('manage_user', $permissions) || Auth::user()->user_type== 2)
-      <li>
-        <a href="{{route('user.view')}}">
-          <i class="bi bi-circle"></i><span>All Users</span>
-        </a>
-      </li>
-      @endif
-    </ul>
-  </li><!-- End Charts Nav -->
 
 
   <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#charts-nav2" data-bs-toggle="collapse" href="#">
-    @if(in_array('add_counsellor', $permissions) || in_array('manage_counsellor', $permissions) || Auth::user()->user_type== 2 )
-      <i class="fas fa-users-cog"></i><span>Manage Counsellors</span><i class="bi bi-chevron-down ms-auto"></i>
-      @endif
+    <a class="nav-link collapsed" href="{{route('counsellor.profile.view')}}">
+      <i class="fas fa-user-edit"></i>
+      <span>Profile</span>
     </a>
-    <ul id="charts-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-    @if(in_array('add_counsellor', $permissions) || Auth::user()->user_type== 2)
-      <li>
-        <a href="{{route('counsellor.view')}}">
-          <i class="bi bi-circle"></i><span>Add Counsellor</span>
-        </a>
-      </li>
-      @endif
-
-      @if(in_array('manage_counsellor', $permissions) || Auth::user()->user_type== 2)
-      <li>
-        <a href="{{route('counsellor.all')}}">
-          <i class="bi bi-circle"></i><span>All Counsellors</span>
-        </a>
-      </li>
-      @endif
-    </ul>
-  </li><!-- End Charts Nav -->
+  </li><!-- End Profile Page Nav -->
 
 
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-      <i class="fa fa-gears"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      @if(in_array('manage_role', $permissions) || Auth::user()->user_type== 2)
-      <li>
-        <a href="{{route('role.view')}}">
-          <i class="bi bi-circle"></i><span>Manage Role and Permission</span>
-        </a>
-      </li>
-      @endif
-
-      @if(in_array('manage_admins', $permissions) || Auth::user()->user_type== 2)
-      <li>
-        <a href="{{route('admin_manager.view')}}">
-          <i class="bi bi-circle"></i><span>Manage Admins</span>
-        </a>
-      </li>
-      @endif
-
-      @if(in_array('manage_status', $permissions) || Auth::user()->user_type== 2)
-      <li>
-        <a href="{{route('status.view')}}">
-          <i class="bi bi-circle"></i><span>Manage Status</span>
-        </a>
-      </li>
-      @endif
-      <li>
-        <a href="{{route('admin.profile.view')}}">
-          <i class="bi bi-circle"></i><span>Profile</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Charts Nav -->
-
+  
   <li class="nav-item">
     <a class="nav-link collapsed" href="{{route('logout')}}">
       <i class="fas fa-sign-out-alt	"></i>

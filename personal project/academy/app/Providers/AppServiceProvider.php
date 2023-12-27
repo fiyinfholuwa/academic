@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Providers;
+use App\Models\AdminRole;
+use App\Models\AppChat;
+use App\Models\Consultation;
+use Auth;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -17,8 +21,25 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot()
     {
-        //
+        view()->composer('*', function ($view) {
+            if (Auth::check()) {
+                $user_role = Auth::user()->user_role;
+                $permission = null;
+
+                $unread_messages = Appchat::where('user_id', '=', Auth::user()->id)->where('counsellor_status', '=', 'pending')->get();
+
+                if (!is_null($user_role)) {
+                    $permission = AdminRole::where('id', $user_role)->first();
+                    $permissions = json_decode($permission->permission, true);
+                }
+
+                $consultations = Consultation::where('status', '=', NULL)->get();
+                $view->with('permissions', $permissions);
+                $view->with('unread_messages', $unread_messages);
+                $view->with('consultations', $consultations);
+            }
+        });
     }
 }

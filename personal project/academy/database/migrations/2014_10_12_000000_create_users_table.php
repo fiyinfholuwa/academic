@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('user_type', 10)->nullable();
             $table->string('block', 10)->nullable();
-            $table->string('role')->nullable();
+            $table->string('user_role')->nullable();
             $table->string('address')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

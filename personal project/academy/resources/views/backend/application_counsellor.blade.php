@@ -12,7 +12,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Manage Applications</h5>
+              <h5 class="card-title">{{$user->first_name}} {{$user->last_name}}'s Applications</h5>
             
 
               <!-- Table with stripped rows -->
@@ -22,7 +22,9 @@
                     <th>
                       Full Name
                     </th>
-                    <th>Application ID</th>
+                    <th>
+                      Application ID
+                    </th>
                     <th>Email</th>
                     <th>Mobile</th>
                     <th>Counsellor</th>
