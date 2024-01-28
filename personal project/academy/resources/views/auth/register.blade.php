@@ -59,12 +59,25 @@
                     <div class="col-12">
                       <!-- <label for="yourUsername" class="form-label">Full Name</label> -->
                       <div class="">
-                        <input placeholder="Enter Full Name" type="text" name="name" value="{{old('name')}}" class="form-control" id="name" required>
-                        <div class="invalid-feedback">Please enter your name.</div>
+                        <input placeholder="Enter First Name" type="text" name="first_name" value="{{old('name')}}" class="form-control" id="name" required>
+                        <div class="invalid-feedback">Please enter your first name.</div>
                        
                       </div>
                       <p style="color:red">
-                        @error('email')
+                        @error('first_name')
+                        {{$message}}
+                        @enderror
+                        </p>
+                    </div>
+
+
+                    <div class="">
+                        <input placeholder="Enter Last Name" type="text" name="last_name" value="{{old('name')}}" class="form-control" id="name" required>
+                        <div class="invalid-feedback">Please enter your last name.</div>
+                       
+                      </div>
+                      <p style="color:red">
+                        @error('last_name')
                         {{$message}}
                         @enderror
                         </p>

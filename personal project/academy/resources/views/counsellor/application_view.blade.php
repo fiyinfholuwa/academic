@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-md-6">
                   <label for="inputAddress5" class="form-label">Upload GRE/TOEFL/IELTS scores</label>
-                  <input type="file"  name="gre_score" class="form-control" id="inputAddres5s" placeholder="1234 Main St">
+                  <!-- <input type="file"  name="gre_score" class="form-control" id="inputAddres5s" placeholder="1234 Main St"> -->
                   <p style="font-weight:bold; color:red; font-size:12px;">
                   @error('gre_score')
                     {{$message}}

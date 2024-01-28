@@ -30,6 +30,7 @@
   <link href="{{asset('backend/assets/css/style.css')}}" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" >
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue&display=swap" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -61,18 +62,18 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    
+
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
-        
-       
+
+
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
+            <i style="font-size: 25px;" class="bi bi-chat-left-text"></i>
             <span class="badge bg-success badge-number">{{count($unread_messages)}}</span>
-            
+
           </a><!-- End Messages Icon -->
 
           <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
@@ -191,7 +192,7 @@
     </a>
   </li><!-- End Dashboard Nav -->
 
-  
+
   <li class="nav-item">
     <a class="nav-link collapsed" href="{{route('counsellor.application.assigned')}}">
       <i class="fab fa-windows"></i>
@@ -209,7 +210,7 @@
   </li><!-- End Profile Page Nav -->
 
 
-  
+
   <li class="nav-item">
     <a class="nav-link collapsed" href="{{route('logout')}}">
       <i class="fas fa-sign-out-alt	"></i>
@@ -217,7 +218,7 @@
     </a>
   </li><!-- End Profile Page Nav -->
 
-  
+
 </ul>
 
 </aside><!-- End Sidebar-->

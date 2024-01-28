@@ -18,7 +18,7 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 // Route::get('/dashboard', function () {
@@ -89,6 +89,40 @@ Route::middleware('auth')->group(function () {
             Route::post('admin/admin_manager/update/{id}', 'admin_manager_update')->name('admin.admin_manager.update');
             Route::post('admin/admin_manager/delete/{id}', 'admin_admin_manager_delete')->name('admin.admin_manager.delete');
             Route::post('admin/admin_manager/block/{id}', 'admin_admin_manager_block')->name('admin.admin_manager.block');
+
+            Route::get('admin/manage/country/view/', 'manage_country_view')->name('manage.country.view');
+            Route::post('admin/manage/country/add', 'manage_country_add')->name('manage.country.save');
+            Route::get('admin/manage/country/edit/{id}', 'manage_country_edit')->name('manage.country.edit');
+            Route::post('admin/manage/country/delete/{id}', 'manage_country_delete')->name('manage.country.delete');
+            Route::post('admin/manage/country/update/{id}', 'manage_country_update')->name('manage.country.update');
+
+            Route::get('admin/testimonial/view', 'admin_testimonial_view')->name('admin.testimonial.view');
+            Route::get('admin/testimonial/all', 'admin_testimonial_all')->name('admin.testimonial.all');
+            Route::post('admin/testimonial/save/', 'admin_testimonial_save')->name('admin.testimonial.save');
+            Route::get('admin/testimonial/edit/{id}', 'admin_testimonial_edit')->name('admin.testimonial.edit');
+            Route::post('admin/testimonial/update/{id}', 'admin_testimonial_update')->name('admin.testimonial.update');
+            Route::post('admin/testimonial/delete/{id}', 'admin_testimonial_delete')->name('admin.testimonial.delete');
+
+            Route::get('admin/askgpt/view', 'admin_askgpt_view')->name('admin.askgpt.view');
+            Route::get('admin/askgpt/all', 'admin_askgpt_all')->name('admin.askgpt.all');
+            Route::post('admin/askgpt/save/', 'admin_askgpt_save')->name('admin.askgpt.save');
+            Route::get('admin/askgpt/edit/{id}', 'admin_askgpt_edit')->name('admin.askgpt.edit');
+            Route::post('admin/askgpt/update/{id}', 'admin_askgpt_update')->name('admin.askgpt.update');
+            Route::post('admin/askgpt/delete/{id}', 'admin_askgpt_delete')->name('admin.askgpt.delete');
+
+            Route::get('admin/resource/view', 'admin_resource_view')->name('admin.resource.view');
+            Route::get('admin/resource/all', 'admin_resource_all')->name('admin.resource.all');
+            Route::post('admin/resource/save/', 'admin_resource_save')->name('admin.resource.save');
+            Route::get('admin/resource/edit/{id}', 'admin_resource_edit')->name('admin.resource.edit');
+            Route::post('admin/resource/update/{id}', 'admin_resource_update')->name('admin.resource.update');
+            Route::post('admin/resource/delete/{id}', 'admin_resource_delete')->name('admin.resource.delete');
+
+            Route::get('admin/course/view', 'admin_course_view')->name('admin.course.view');
+            Route::get('admin/course/all', 'admin_course_all')->name('admin.course.all');
+            Route::post('admin/course/save/', 'admin_course_save')->name('admin.course.save');
+            Route::get('admin/course/edit/{id}', 'admin_course_edit')->name('admin.course.edit');
+            Route::post('admin/course/update/{id}', 'admin_course_update')->name('admin.course.update');
+            Route::post('admin/course/delete/{id}', 'admin_course_delete')->name('admin.course.delete');
         });
 
         Route::controller(CounsellorController::class)->group(function () {
@@ -102,13 +136,29 @@ Route::middleware('auth')->group(function () {
             Route::get('counsellor/application/chat/{id}', 'counsellor_application_chat')->name('counsellor.application.chat');
             Route::post('counsellor/application/chat/save', 'counsellor_application_chat_save')->name('counsellor.application.chat.save');
         });
-        
+
         Route::controller(UserController::class)->group(function () {
-            
+
         });
 
 
-    
+
     });
-    
+
+
+    Route::get('/refresh-migration', function () {
+        \Artisan::call('migrate:refresh');
+        return 'Migration Refreshed!';
+    });
+
+    Route::get('/create-storage-link', function () {
+        try {
+            Artisan::call('storage:link');
+            return 'Storage link created!';
+        } catch (\Exception $e) {
+            return 'Error creating storage link: ' . $e->getMessage();
+        }
+    });
+
+
 require __DIR__.'/auth.php';

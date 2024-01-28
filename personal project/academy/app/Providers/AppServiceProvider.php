@@ -33,10 +33,11 @@ class AppServiceProvider extends ServiceProvider
                 if (!is_null($user_role)) {
                     $permission = AdminRole::where('id', $user_role)->first();
                     $permissions = json_decode($permission->permission, true);
+                    $view->with('permissions', $permissions);
                 }
 
                 $consultations = Consultation::where('status', '=', NULL)->get();
-                $view->with('permissions', $permissions);
+                
                 $view->with('unread_messages', $unread_messages);
                 $view->with('consultations', $consultations);
             }

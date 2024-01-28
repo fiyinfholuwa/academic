@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AskCategory;
+use App\Models\AskGpt;
+use App\Models\Country;
+use App\Models\CourseCategory;
+use App\Models\ProgramCourse;
+use App\Models\ResourceBook;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Status;
@@ -13,6 +20,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\RegisterationEmail;
 use Illuminate\Support\Facades\Session;
 use Auth;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -67,7 +75,7 @@ class AdminController extends Controller
         ]);
 
         $min = 100000;
-        $max = 999999; 
+        $max = 999999;
         $randomNumber = rand($min, $max);
         $password = "student".$randomNumber;
         $add_user = new User;
@@ -153,7 +161,7 @@ class AdminController extends Controller
         ]);
 
         $min = 100000;
-        $max = 999999; 
+        $max = 999999;
         $randomNumber = rand($min, $max);
         $password = "counsellor".$randomNumber;
         $add_user = new User;
@@ -265,7 +273,7 @@ class AdminController extends Controller
     }
 
     public function status_delete($id){
-        
+
         $delete_status =  Status::findOrFail($id);
         $delete_status->delete();
         $notification = array(
@@ -276,7 +284,7 @@ class AdminController extends Controller
     }
 
     public function status_edit($id){
-        
+
         $status =  Status::findOrFail($id);
         $statuses = Status::all();
         return view('backend.status_edit', compact('statuses', 'status'));
@@ -316,9 +324,9 @@ class AdminController extends Controller
             'current_password' => 'required',
             'password' => 'required|confirmed|min:8',
         ]);
-    
+
         $user = auth()->user();
-    
+
         $notification = array(
             'message' => 'The current password is incorrect.',
             'alert-type' => 'error'
@@ -334,7 +342,7 @@ class AdminController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
-    
+
     }
 
     public function logout(){
@@ -343,7 +351,7 @@ class AdminController extends Controller
         return Redirect()->route('login');
     }
 
-    
+
     public function admin_application_save(Request $request){
 
         $request->validate([
@@ -389,7 +397,7 @@ class AdminController extends Controller
     }else{
         $path_certification = NULL;
     }
-    
+
     if ($request->hasFile('recommendation')) {
         $recommendation = $request->file('recommendation');
         $extension = $recommendation->getClientOriginalName();
@@ -541,7 +549,7 @@ class AdminController extends Controller
     }else{
         $path_certification = $update_application->certification;
     }
-    
+
     if ($request->hasFile('recommendation')) {
         $recommendation = $request->file('recommendation');
         $extension = $recommendation->getClientOriginalName();
@@ -671,7 +679,7 @@ class AdminController extends Controller
     }
 
     public function role_delete($id){
-        
+
         $delete_role =  AdminRole::findOrFail($id);
         $delete_role->delete();
         $notification = array(
@@ -698,7 +706,7 @@ class AdminController extends Controller
     }
 
     public function role_edit($id){
-        
+
         $role =  AdminRole::findOrFail($id);
         $roles = AdminRole::all();
         return view('backend.role_edit', compact('roles', 'role'));
@@ -733,7 +741,7 @@ class AdminController extends Controller
         ]);
 
         $min = 100000;
-        $max = 999999; 
+        $max = 999999;
         $randomNumber = rand($min, $max);
         $password = "admin_manager".$randomNumber;
         $add_user = new User;
@@ -818,5 +826,438 @@ class AdminController extends Controller
         return view('backend.admin_manager_all', compact('users'));
     }
 
+
+    public function manage_country_view(){
+        $countries = Country::all();
+        return view('backend.manage_country', compact('countries'));
+    }
+
+    public function manage_country_edit($id){
+        $country = Country::findOrFail($id);
+        $countries = Country::all();
+        return view('backend.manage_country_edit', compact('country', 'countries'));
+    }
+
+    public function manage_country_add(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'flag' => 'required'
+        ]);
+
+        $image = $request->file('flag');
+        $extension = $image->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $directory = 'uploads/flag/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $image->move($directory, $filename);
+        $path = $directory . $filename;
+        $country = new Country;
+        $country->name = $request->name;
+        $country->flag = $path;
+        $country->save();
+        $notification = array(
+            'message' => 'Country Successfully Added',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function manage_country_delete($id){
+        $country =  Country::findOrFail($id);
+        $filePath = $country->flag;
+        File::delete(public_path($filePath));
+        $country->delete();
+        $notification = array(
+            'message' => 'Country Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+
+    public function manage_country_update(Request $request, $id){
+        $request->validate([
+            'name' => 'required'
+        ]);
+        $country = Country::findOrFail($id);
+        if ($request->hasFile('flag')){
+            $image = $request->file('flag');
+            $extension = $image->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $directory = 'uploads/flag/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $image->move($directory, $filename);
+            $path = $directory . $filename;
+        }else{
+            $path = $country->flag;
+        }
+
+        $country->name = $request->name;
+        $country->flag = $path;
+        $country->save();
+        $notification = array(
+            'message' => 'Country Successfully Updated',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('manage.country.view')->with($notification);
+    }
+
+    public function admin_testimonial_view(){
+        $countries = Country::all();
+        return view('backend.testimonial_view', compact('countries'));
+    }
+
+    public function admin_testimonial_save(Request $request){
+        $request->validate([
+            'full_name' => 'required',
+            'image' => 'required',
+            'country' => 'required',
+            'link'=> 'required'
+        ]);
+
+        $image = $request->file('image');
+        $extension = $image->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $directory = 'uploads/testimonials/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $image->move($directory, $filename);
+        $path = $directory . $filename;
+        $testimonial = new Testimonial;
+        $testimonial->full_name = $request->full_name;
+        $testimonial->image = $path;
+        $testimonial->link = $request->link;
+        $testimonial->country_id = $request->country;
+        $testimonial->save();
+        $notification = array(
+            'message' => 'Testimonial Successfully Added',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function admin_testimonial_all()
+    {
+        $testimonials = Testimonial::all();
+        return view('backend.testimonial_all', compact('testimonials'));
+    }
+
+    public function admin_testimonial_edit($id){
+        $countries = Country::all();
+        $testimonial = Testimonial::findOrFail($id);
+        return view('backend.testimonial_edit', compact('countries','testimonial'));
+    }
+
+
+    public function admin_testimonial_update(Request $request, $id){
+        $request->validate([
+            'full_name' => 'required',
+            'country' => 'required',
+            'link'=> 'required'
+        ]);
+        $testimonial = Testimonial::findOrFail($id);
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $directory = 'uploads/testimonials/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $image->move($directory, $filename);
+            $path = $directory . $filename;
+        }else{
+            $path = $testimonial->image;
+        }
+        $testimonial->full_name = $request->full_name;
+        $testimonial->image = $path;
+        $testimonial->link = $request->link;
+        $testimonial->country_id = $request->country;
+        $testimonial->save();
+        $notification = array(
+            'message' => 'Testimonial Successfully Added',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.testimonial.all')->with($notification);
+    }
+
+    public function admin_testimonial_delete($id){
+        $testimony =  Testimonial::findOrFail($id);
+        $filePath = $testimony->image;
+        File::delete(public_path($filePath));
+        $testimony->delete();
+        $notification = array(
+            'message' => 'Testimonial Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function admin_askgpt_view()
+    {
+        $askgpts = AskCategory::all();
+        return view('backend.askgpt_view', compact('askgpts'));
+    }
+    public function admin_askgpt_edit($id)
+    {
+        $askgpts = AskCategory::all();
+        $askgpt = AskGpt::findOrFail($id);
+        return view('backend.askgpt_edit', compact('askgpts', 'askgpt'));
+    }
+
+    public function admin_askgpt_save(Request $request)
+    {
+        $request->validate([
+            'askgpt_id' => 'required',
+            'question' => 'required',
+            'answer' => 'required'
+        ]);
+        $askgpt = new AskGpt;
+        $askgpt->askgpt_id = $request->askgpt_id;
+        $askgpt->question = $request->question;
+        $askgpt->answer = $request->answer;
+        $askgpt->save();
+        $notification = array(
+            'message' => 'Askgpt Successfully Added',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+
+    public function admin_askgpt_all(){
+        $askgpts = AskGpt::all();
+        return view('backend.askgpt_all', compact('askgpts'));
+    }
+
+
+    public function admin_askgpt_update(Request $request, $id)
+    {
+        $request->validate([
+            'askgpt_id' => 'required',
+            'question' => 'required',
+            'answer' => 'required'
+        ]);
+        $askgpt =  AskGpt::findOrFail($id);
+        $askgpt->askgpt_id = $request->askgpt_id;
+        $askgpt->question = $request->question;
+        $askgpt->answer = $request->answer;
+        $askgpt->save();
+        $notification = array(
+            'message' => 'Askgpt Successfully Updated',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.askgpt.all')->with($notification);
+
+    }
+
+    public function admin_askgpt_delete($id){
+        $askgpt =  AskGpt::findOrFail($id);
+        $askgpt->delete();
+        $notification = array(
+            'message' => 'AskGpt Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+
+    public function admin_resource_view(){
+        $countries = Country::all();
+        return view('backend.resource_view', compact('countries'));
+    }
+
+    public function admin_resource_save(Request $request){
+        $request->validate([
+            'country_id' => 'required',
+            'image' => 'required',
+            'pdf' => 'required',
+        ]);
+
+        $image = $request->file('image');
+        $extension = $image->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $directory = 'uploads/resources/image/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $image->move($directory, $filename);
+        $path1 = $directory . $filename;
+        $pdf = $request->file('pdf');
+        $extension = $pdf->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $directory = 'uploads/resources/pdf/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $pdf->move($directory, $filename);
+        $path2 = $directory . $filename;
+        $resource = new ResourceBook;
+        $resource->country_id = $request->country_id;
+        $resource->image = $path1;
+        $resource->pdf = $path2;
+        $resource->save();
+        $notification = array(
+            'message' => 'Resource Successfully Added',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function admin_resource_all()
+    {
+        $resources = ResourceBook::all();
+        return view('backend.resource_all', compact('resources'));
+    }
+
+    public function admin_resource_edit($id){
+        $countries = Country::all();
+        $resource = ResourceBook::findOrFail($id);
+        return view('backend.resource_edit', compact('countries','resource'));
+    }
+
+
+    public function admin_resource_update(Request $request, $id){
+        $request->validate([
+            'country_id' => 'required'
+        ]);
+        $resource = ResourceBook::findOrFail($id);
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $directory = 'uploads/resources/image/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $image->move($directory, $filename);
+            $path1 = $directory . $filename;
+        }else{
+            $path1 = $resource->image;
+        }
+        if($request->hasFile('pdf')){
+            $pdf = $request->file('pdf');
+            $extension = $pdf->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $directory = 'uploads/resources/pdf/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $pdf->move($directory, $filename);
+            $path2 = $directory . $filename;
+        }else{
+            $path2 = $resource->pdf;
+        }
+
+        $resource->country_id = $request->country_id;
+        $resource->image = $path1;
+        $resource->pdf = $path2;
+        $resource->save();
+        $notification = array(
+            'message' => 'Resource Successfully Updated',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.resource.all')->with($notification);
+    }
+    public function admin_resource_delete($id){
+        $resource =  ResourceBook::findOrFail($id);
+        $filePath1 = $resource->image;
+        $filePath2 = $resource->pdf;
+        File::delete(public_path($filePath1));
+        File::delete(public_path($filePath2));
+        $resource->delete();
+        $notification = array(
+            'message' => 'Resource Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function admin_course_view(){
+        $courses = CourseCategory::all();
+        return view('backend.course_view', compact('courses'));
+    }
+
+    public function admin_course_edit($id){
+        $courses = CourseCategory::all();
+        $course = ProgramCourse::findOrFail($id);
+        return view('backend.course_edit', compact('courses', 'course'));
+    }
+
+    public function admin_course_save(Request $request){
+        $request->validate([
+            'course_id' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'duration' => 'required',
+            'entry_score' => 'required',
+            'entry_score2' => 'required',
+            'about' => 'required',
+            'why' => 'required',
+        ]);
+        $course = new ProgramCourse;
+        $course->course_id = $request->course_id;
+        $course->title= $request->title;
+        $course->description= $request->description;
+        $course->duration= $request->duration;
+        $course->entry_score= $request->entry_score;
+        $course->entry_score2= $request->entry_score2;
+        $course->about= $request->about;
+        $course->why= $request->why;
+        $course->save();
+        $notification = array(
+            'message' => 'Course Successfully Added',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function admin_course_all(){
+        $courses = ProgramCourse::all();
+        return view('backend.course_all', compact('courses'));
+    }
+
+    public function admin_course_update(Request $request, $id){
+        $request->validate([
+            'course_id' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'duration' => 'required',
+            'entry_score' => 'required',
+            'entry_score2' => 'required',
+            'about' => 'required',
+            'why' => 'required',
+        ]);
+        $course = ProgramCourse::findOrFail($id);
+        $course->course_id = $request->course_id;
+        $course->title= $request->title;
+        $course->description= $request->description;
+        $course->duration= $request->duration;
+        $course->entry_score= $request->entry_score;
+        $course->entry_score2= $request->entry_score2;
+        $course->about= $request->about;
+        $course->why= $request->why;
+        $course->save();
+        $notification = array(
+            'message' => 'Course Successfully Updated',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.course.all')->with($notification);
+    }
+
+    public function admin_course_delete($id){
+        $course = ProgramCourse::findOrFail($id);
+        $course->delete();
+        $notification = array(
+            'message' => 'Course Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 
 }
