@@ -6,6 +6,7 @@ use App\Models\AskCategory;
 use App\Models\AskGpt;
 use App\Models\Country;
 use App\Models\CourseCategory;
+use App\Models\Destination;
 use App\Models\ProgramCourse;
 use App\Models\ResourceBook;
 use App\Models\Testimonial;
@@ -1195,10 +1196,8 @@ class AdminController extends Controller
             'title' => 'required',
             'description' => 'required',
             'duration' => 'required',
-            'entry_score' => 'required',
-            'entry_score2' => 'required',
             'about' => 'required',
-            'why' => 'required',
+
         ]);
         $course = new ProgramCourse;
         $course->course_id = $request->course_id;
@@ -1208,7 +1207,6 @@ class AdminController extends Controller
         $course->entry_score= $request->entry_score;
         $course->entry_score2= $request->entry_score2;
         $course->about= $request->about;
-        $course->why= $request->why;
         $course->save();
         $notification = array(
             'message' => 'Course Successfully Added',
@@ -1228,10 +1226,7 @@ class AdminController extends Controller
             'title' => 'required',
             'description' => 'required',
             'duration' => 'required',
-            'entry_score' => 'required',
-            'entry_score2' => 'required',
             'about' => 'required',
-            'why' => 'required',
         ]);
         $course = ProgramCourse::findOrFail($id);
         $course->course_id = $request->course_id;
@@ -1241,7 +1236,6 @@ class AdminController extends Controller
         $course->entry_score= $request->entry_score;
         $course->entry_score2= $request->entry_score2;
         $course->about= $request->about;
-        $course->why= $request->why;
         $course->save();
         $notification = array(
             'message' => 'Course Successfully Updated',
@@ -1259,5 +1253,124 @@ class AdminController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
+
+
+    public function admin_destination_view(){
+        $countries = Country::all();
+        return view('backend.destination_view', compact('countries'));
+    }
+
+    public function admin_destination_save(Request $request){
+        $request->validate([
+            'country_id' => 'required',
+            'image' => 'required',
+            'pdf' => 'required',
+        ]);
+        $baseUrl = request()->getSchemeAndHttpHost();
+        $image = $request->file('image');
+        $extension = $image->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $directory = 'uploads/destinations/image/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $image->move($directory, $filename);
+        $path1 = $baseUrl."/".$directory . $filename;
+        $pdf = $request->file('pdf');
+        $extension = $pdf->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $directory = 'uploads/destinations/pdf/';
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        $pdf->move($directory, $filename);
+        $path2 = $baseUrl."/".$directory . $filename;
+        $destination = new Destination;
+        $destination->country_id = $request->country_id;
+        $destination->image = $path1;
+        $destination->pdf = $path2;
+        $destination->info = $request->info;
+        $destination->save();
+        $notification = array(
+            'message' => 'Destination Successfully Added',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function admin_destination_all()
+    {
+        $destinations = Destination::all();
+        return view('backend.destination_all', compact('destinations'));
+    }
+
+    public function admin_destination_edit($id){
+        $countries = Country::all();
+        $destination = Destination::findOrFail($id);
+        return view('backend.destination_edit', compact('countries','destination'));
+    }
+
+
+    public function admin_destination_update(Request $request, $id){
+        $request->validate([
+            'country_id' => 'required'
+        ]);
+        $baseUrl = request()->getSchemeAndHttpHost();
+        $destination = Destination::findOrFail($id);
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $directory = 'uploads/destinations/image/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $image->move($directory, $filename);
+            $path1 = $baseUrl."/".$directory . $filename;
+        }else{
+            $path1 = $destination->image;
+        }
+        if($request->hasFile('pdf')){
+            $image->move($directory, $filename);
+            $path1 = $baseUrl."/".$directory . $filename;
+            $pdf = $request->file('pdf');
+            $extension = $pdf->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $directory = 'uploads/destinations/pdf/';
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            $pdf->move($directory, $filename);
+            $path2 = $baseUrl."/".$directory . $filename;
+        }else{
+            $path2 = $destination->pdf;
+        }
+
+        $destination->country_id = $request->country_id;
+        $destination->image = $path1;
+        $destination->pdf = $path2;
+        $destination->info = $request->info;
+        $destination->save();
+        $notification = array(
+            'message' => 'Destination Successfully Updated',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('admin.destination.all')->with($notification);
+    }
+    public function admin_destination_delete($id){
+        $destination =  Destination::findOrFail($id);
+        $filePath1 = ltrim(parse_url($destination->image, PHP_URL_PATH), '/');
+        $filePath2 = ltrim(parse_url($destination->pdf, PHP_URL_PATH), '/');
+        File::delete(public_path($filePath1));
+        File::delete(public_path($filePath2));
+        $destination->delete();
+        $notification = array(
+            'message' => 'Destination Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
 
 }

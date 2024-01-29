@@ -117,6 +117,13 @@ Route::middleware('auth')->group(function () {
             Route::post('admin/resource/update/{id}', 'admin_resource_update')->name('admin.resource.update');
             Route::post('admin/resource/delete/{id}', 'admin_resource_delete')->name('admin.resource.delete');
 
+            Route::get('admin/destination/view', 'admin_destination_view')->name('admin.destination.view');
+            Route::get('admin/destination/all', 'admin_destination_all')->name('admin.destination.all');
+            Route::post('admin/destination/save/', 'admin_destination_save')->name('admin.destination.save');
+            Route::get('admin/destination/edit/{id}', 'admin_destination_edit')->name('admin.destination.edit');
+            Route::post('admin/destination/update/{id}', 'admin_destination_update')->name('admin.destination.update');
+            Route::post('admin/destination/delete/{id}', 'admin_destination_delete')->name('admin.destination.delete');
+
             Route::get('admin/course/view', 'admin_course_view')->name('admin.course.view');
             Route::get('admin/course/all', 'admin_course_all')->name('admin.course.all');
             Route::post('admin/course/save/', 'admin_course_save')->name('admin.course.save');

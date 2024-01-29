@@ -228,7 +228,7 @@
            data-bs-toggle="collapse"
            href="#">
             @if(in_array('add_application', $permissions) || in_array('manage_application', $permissions)  || Auth::user()->user_type== 2)
-                <i class="fab fa-windows"></i><span class="{{ request()->routeIs('application.view') || request()->routeIs('application.all') ? 'text-primary' : '' }}">Manage Applications</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fab fa-windows"></i><span class="{{ request()->routeIs('application.view') || request()->routeIs('application.all') ? 'text-primary' : '' }}">Applications</span><i class="bi bi-chevron-down ms-auto"></i>
             @endif
         </a>
         <ul id="charts-nav11" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -262,7 +262,7 @@
   <li class="nav-item ">
     <a class="nav-link {{ request()->routeIs('user.add.view') || request()->routeIs('user.view') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav1" data-bs-toggle="collapse" href="#">
     @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
-      <i class="fas fa-users"></i><span >Manage Users</span><i class="bi bi-chevron-down ms-auto"></i>
+      <i class="fas fa-users"></i><span >Users</span><i class="bi bi-chevron-down ms-auto"></i>
       @endif
     </a>
     <ul id="charts-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -288,7 +288,7 @@
     <li class="nav-item ">
         <a class="nav-link {{ request()->routeIs('admin.testimonial.view') || request()->routeIs('admin.testimonial.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav3" data-bs-toggle="collapse" href="#">
             @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
-                <i class="fas fa-users"></i><span >Manage Testimonials</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fas fa-users"></i><span >Testimonials</span><i class="bi bi-chevron-down ms-auto"></i>
             @endif
         </a>
         <ul id="charts-nav3" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -314,7 +314,7 @@
     <li class="nav-item ">
         <a class="nav-link {{ request()->routeIs('admin.askgpt.view') || request()->routeIs('admin.askgpt.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav4" data-bs-toggle="collapse" href="#">
             @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
-                <i class="fas fa-users"></i><span >Manage AskGPT</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fas fa-users"></i><span >AskGPT</span><i class="bi bi-chevron-down ms-auto"></i>
             @endif
         </a>
         <ul id="charts-nav4" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -336,10 +336,10 @@
         </ul>
     </li><!-- End Charts Nav -->
 
-<li class="nav-item ">
+    <li class="nav-item ">
         <a class="nav-link {{ request()->routeIs('admin.resource.view') || request()->routeIs('admin.resource.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav5" data-bs-toggle="collapse" href="#">
             @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
-                <i class="fas fa-users"></i><span >Manage Resources</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fas fa-users"></i><span >Resources</span><i class="bi bi-chevron-down ms-auto"></i>
             @endif
         </a>
         <ul id="charts-nav5" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -361,11 +361,36 @@
         </ul>
     </li><!-- End Charts Nav -->
 
+    <li class="nav-item ">
+        <a class="nav-link {{ request()->routeIs('admin.destination.view') || request()->routeIs('admin.destination.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav15" data-bs-toggle="collapse" href="#">
+            @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
+                <i class="fas fa-users"></i><span >Destinations</span><i class="bi bi-chevron-down ms-auto"></i>
+            @endif
+        </a>
+        <ul id="charts-nav15" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            @if(in_array('add_user', $permissions) || Auth::user()->user_type== 2)
+                <li>
+                    <a href="{{route('admin.destination.view')}}">
+                        <i class="bi bi-circle"></i><span>Add destination</span>
+                    </a>
+                </li>
+            @endif
+
+            @if(in_array('manage_user', $permissions) || Auth::user()->user_type== 2)
+                <li>
+                    <a href="{{route('admin.destination.all')}}">
+                        <i class="bi bi-circle"></i><span>All Destinations</span>
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </li><!-- End Charts Nav -->
+
 
     <li class="nav-item ">
         <a class="nav-link {{ request()->routeIs('admin.course.view') || request()->routeIs('admin.course.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav6" data-bs-toggle="collapse" href="#">
             @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
-                <i class="fas fa-users"></i><span >Manage Courses</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fas fa-users"></i><span >Courses</span><i class="bi bi-chevron-down ms-auto"></i>
             @endif
         </a>
         <ul id="charts-nav6" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -392,7 +417,7 @@
     <li class="nav-item">
     <a class="nav-link {{ request()->routeIs('counsellor.view') || request()->routeIs('counsellor.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav2" data-bs-toggle="collapse" href="#">
     @if(in_array('add_counsellor', $permissions) || in_array('manage_counsellor', $permissions) || Auth::user()->user_type== 2 )
-      <i class="fas fa-users-cog"></i><span>Manage Counsellors</span><i class="bi bi-chevron-down ms-auto"></i>
+      <i class="fas fa-users-cog"></i><span>Counsellors</span><i class="bi bi-chevron-down ms-auto"></i>
       @endif
     </a>
     <ul id="charts-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -423,7 +448,7 @@
       @if(in_array('manage_role', $permissions) || Auth::user()->user_type== 2)
       <li>
         <a href="{{route('role.view')}}">
-          <i class="bi bi-circle"></i><span>Manage Role and Permission</span>
+          <i class="bi bi-circle"></i><span>Role and Permission</span>
         </a>
       </li>
       @endif
@@ -431,7 +456,7 @@
       @if(in_array('manage_admins', $permissions) || Auth::user()->user_type== 2)
       <li>
         <a href="{{route('admin_manager.view')}}">
-          <i class="bi bi-circle"></i><span>Manage Admins</span>
+          <i class="bi bi-circle"></i><span>Admins</span>
         </a>
       </li>
       @endif
@@ -439,7 +464,7 @@
       @if(in_array('manage_status', $permissions) || Auth::user()->user_type== 2)
       <li>
         <a href="{{route('status.view')}}">
-          <i class="bi bi-circle"></i><span>Manage Status</span>
+          <i class="bi bi-circle"></i><span>Status</span>
         </a>
       </li>
       @endif
@@ -447,7 +472,7 @@
         @if(in_array('manage_status', $permissions) || Auth::user()->user_type== 2)
           <li>
             <a href="{{route('manage.country.view')}}">
-              <i class="bi bi-circle"></i><span>Manage Countries</span>
+              <i class="bi bi-circle"></i><span>Countries</span>
             </a>
           </li>
          @endif
@@ -494,7 +519,13 @@
   <!-- Template Main JS File -->
   <script src="{{asset('backend/assets/js/main.js')}}"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="tinymce/tinymce.min.js"></script>
 <script>
+    tinymce.init({
+        selector: '#myTextarea'
+    });
+</script>
+  <script>
 
 
  @if(Session::has('message'))

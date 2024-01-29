@@ -84,7 +84,7 @@
 
                   <div class="col-md-6 col-lg-12">
                       <label for="inputName5" class="form-label">About the Course</label>
-                      <textarea name="about" placeholder="Enter About Course" class="form-control" rows="10">{{$course->about}}</textarea>
+                      <textarea name="about" id="myTextarea" placeholder="Enter About Course" class="form-control" rows="10">{{$course->about}}</textarea>
                       <p style="font-weight:bold; color:red; font-size:12px;">
                           @error('about')
                           {{$message}}
@@ -93,15 +93,6 @@
                   </div>
 
 
-                  <div class="col-md-6 col-lg-12">
-                      <label for="inputName5" class="form-label">Why Choosing the Course</label>
-                      <textarea name="why" placeholder="Enter Choosing the Course" class="form-control" rows="10">{{$course->why}}</textarea>
-                      <p style="font-weight:bold; color:red; font-size:12px;">
-                          @error('why')
-                          {{$message}}
-                          @enderror
-                      </p>
-                  </div>
 
                   <div class="">
                   <button type="submit" class="btn btn-primary">Update Course</button>
