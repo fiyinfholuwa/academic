@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CounsellorController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\FrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +19,9 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+//Route::get('/', function () {
+//    return view('auth.login');
+//});
 
 // Route::get('/dashboard', function () {
 //     return view('backend.dashboard');
@@ -144,16 +146,35 @@ Route::middleware('auth')->group(function () {
             Route::post('counsellor/application/chat/save', 'counsellor_application_chat_save')->name('counsellor.application.chat.save');
         });
 
-        Route::controller(UserController::class)->group(function () {
 
+
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/profile', 'profile')->name('profile');
         });
 
 
 
     });
 
+Route::controller(FrontendController::class)->group(function () {
+    Route::get('/', 'home')->name('home');
+    Route::get('/courses', 'courses')->name('courses');
+    Route::get('/courses/{name}', 'courses_category')->name('courses.category');
+    Route::get('/courses/detail/{title}', 'courses_detail')->name('courses.detail');
+    Route::get('/destination/detail/{id}', 'destination_detail')->name('destination.detail');
+    Route::get('/resources', 'resources')->name('resources');
+    Route::get('/faq', 'faq')->name('faq');
+    Route::get('/ask/category/{ask_name}', 'faq_category_d')->name('ask.details');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/consultation', 'consultation')->name('consultation');
+    Route::get('/auth/login', 'auth_login')->name('user.login');
+    Route::get('/auth/register', 'auth_register')->name('user.register');
+    Route::post('/consultation/add', 'consultation_add')->name('consultation.add');
+});
 
-    Route::get('/refresh-migration', function () {
+
+
+Route::get('/refresh-migration', function () {
         \Artisan::call('migrate:refresh');
         return 'Migration Refreshed!';
     });

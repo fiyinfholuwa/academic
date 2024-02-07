@@ -15,10 +15,10 @@ class AuthController extends Controller
             return redirect()->route('admin.dashboard');
         }elseif(Auth::user()->user_type=='1'){
             return redirect()->route('counsellor.dashboard');
-        }else{
-            return redirect()->route('login');
+        }elseif(Auth::user()->user_type =='0'){
+            return redirect()->route('profile');
         }
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
 
 

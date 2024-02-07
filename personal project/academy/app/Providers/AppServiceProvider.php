@@ -4,6 +4,7 @@ namespace App\Providers;
 use App\Models\AdminRole;
 use App\Models\AppChat;
 use App\Models\Consultation;
+use App\Models\Destination;
 use Auth;
 
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('*', function ($view) {
+            $view->with('destinations', Destination::all());
             if (Auth::check()) {
                 $user_role = Auth::user()->user_role;
                 $permission = null;
@@ -37,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
                 }
 
                 $consultations = Consultation::where('status', '=', NULL)->get();
-                
+
                 $view->with('unread_messages', $unread_messages);
                 $view->with('consultations', $consultations);
             }

@@ -1,0 +1,224 @@
+.application-header-box {
+  margin: 8rem 10rem;
+}
+
+.application-header {
+  border-bottom: 1px solid hwb(0 3% 97% / 0.27);
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+}
+
+.application-header a {
+  font-size: 2rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #1a77e5;
+}
+
+.application-header h2 {
+  font-size: 4rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #080808;
+  margin-top: 3rem;
+}
+
+.application-header-box h3 {
+  font-size: 1.5rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #969696;
+  line-height: 2rem;
+}
+
+
+
+/* FORM */
+form {
+  width: 100%;
+}
+
+.personal-detail:not(:last-child) {
+  margin-bottom: 5rem;
+}
+
+.personal-detail h2 {
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #080808;
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.personal {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  width: 100%;
+}
+
+.personal:not(:last-child) {
+  margin-bottom: 3rem;
+}
+
+label {
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #606060;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  display: block;
+
+}
+
+input,
+select {
+  border-radius: 2px;
+  background-color: #f8f9fd;
+  padding: 1.5rem;
+  border: none;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #969696;
+  outline: none;
+  font-family: 'Epilogue', sans-serif;
+  font-size: 1.3rem;
+}
+
+input::placeholder {
+  font-size: 1.2rem;
+  font-family: 'Epilogue', sans-serif;
+
+}
+
+
+.first-input {
+  width: 30%;
+}
+
+.second-input {
+  width: 15%;
+}
+
+
+.first-input input,
+.second-input input,
+.first-input select {
+  width: 100%;
+}
+
+#fileInput {
+  display: none;
+}
+
+.file-input {
+  border-radius: 2px;
+  background-color: #f8f9fd;
+  padding: 1.5rem 3rem;
+}
+
+.file-text {
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #606060;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.file-label {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-family: 'Epilogue', sans-serif;
+
+}
+
+.file-label img {
+  width: 1.8rem;
+  margin-right: 1.5rem;
+}
+
+.browse-text {
+  color: #4079e4;
+  line-height: 5rem;
+}
+
+.add-document {
+  border-radius: 50px;
+  border: solid 1px #080808;
+  padding: 2rem 4rem;
+
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #606060;
+  display: inline-block;
+  margin-top: 2rem;
+}
+
+.last-btn {
+  margin-top: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 2rem;
+  margin-right: 10rem;
+}
+
+.last-btn a {
+  padding: 1.5rem 5rem;
+  border-radius: 50px;
+  background-color: #ccc;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #fff;
+}
+
+.last-btn button {
+  padding: 1.5rem 5rem;
+  border-radius: 50px;
+  background-color: #080808;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: left;
+  font-family: 'Epilogue', sans-serif;
+  color: #fff;
+}

@@ -1,0 +1,92 @@
+.course-head {
+  margin-bottom: 4rem !important;
+}
+
+.find-course {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.find-course input {
+  width: 40%;
+}
+
+.find-course select {
+  width: 20%;
+  padding: 20.5px 25.5px 11.5px 28px;
+  border-radius: 5px;
+  background-color: #ffff;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #6f6f6f;
+  margin-right: 2rem;
+}
+
+.find-course button {
+  padding: 1rem 4rem;
+  border-radius: 50px;
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  margin-left: 2rem;
+}
+
+.bachelor:not(:last-child) {
+  margin-bottom: 9rem;
+}
+
+.bachelor h3 {
+  font-size: 3rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #1a77e5;
+}
+
+.bachelor p {
+  width: 80%;
+  font-size: 1.5rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #868686;
+  margin-top: 3rem;
+}
+
+.bachelor h4 {
+  margin-top: 3rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #2e2e2e;
+}
+
+.bachelor h6 {
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #2e2e2e;
+}

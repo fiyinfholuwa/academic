@@ -349,7 +349,7 @@ class AdminController extends Controller
     public function logout(){
         Session::flush();
          Auth::logout();
-        return Redirect()->route('login');
+        return Redirect()->route('home');
     }
 
 
@@ -1199,6 +1199,8 @@ class AdminController extends Controller
             'about' => 'required',
 
         ]);
+        $url_slug = strtolower($request->title);
+        $label_slug= preg_replace('/\s+/', '-', $url_slug);
         $course = new ProgramCourse;
         $course->course_id = $request->course_id;
         $course->title= $request->title;
@@ -1207,6 +1209,7 @@ class AdminController extends Controller
         $course->entry_score= $request->entry_score;
         $course->entry_score2= $request->entry_score2;
         $course->about= $request->about;
+        $course->slug= $label_slug;
         $course->save();
         $notification = array(
             'message' => 'Course Successfully Added',
@@ -1228,6 +1231,8 @@ class AdminController extends Controller
             'duration' => 'required',
             'about' => 'required',
         ]);
+        $url_slug = strtolower($request->title);
+        $label_slug= preg_replace('/\s+/', '-', $url_slug);
         $course = ProgramCourse::findOrFail($id);
         $course->course_id = $request->course_id;
         $course->title= $request->title;
@@ -1236,6 +1241,7 @@ class AdminController extends Controller
         $course->entry_score= $request->entry_score;
         $course->entry_score2= $request->entry_score2;
         $course->about= $request->about;
+        $course->slug= $label_slug;
         $course->save();
         $notification = array(
             'message' => 'Course Successfully Updated',

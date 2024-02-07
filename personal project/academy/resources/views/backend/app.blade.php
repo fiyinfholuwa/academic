@@ -216,7 +216,7 @@
 
     <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-            <i class="bi bi-grid"></i>
+            <i class="fa fa-tachometer"></i>
             <span>Dashboard</span>
         </a>
     </li><!-- End Dashboard Nav -->
@@ -288,7 +288,7 @@
     <li class="nav-item ">
         <a class="nav-link {{ request()->routeIs('admin.testimonial.view') || request()->routeIs('admin.testimonial.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav3" data-bs-toggle="collapse" href="#">
             @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
-                <i class="fas fa-users"></i><span >Testimonials</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fas fa-quote-left"></i><span >Testimonials</span><i class="bi bi-chevron-down ms-auto"></i>
             @endif
         </a>
         <ul id="charts-nav3" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -314,7 +314,7 @@
     <li class="nav-item ">
         <a class="nav-link {{ request()->routeIs('admin.askgpt.view') || request()->routeIs('admin.askgpt.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav4" data-bs-toggle="collapse" href="#">
             @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
-                <i class="fas fa-users"></i><span >AskGPT</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fas fa-question"></i><span >AskGPT</span><i class="bi bi-chevron-down ms-auto"></i>
             @endif
         </a>
         <ul id="charts-nav4" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -339,7 +339,7 @@
     <li class="nav-item ">
         <a class="nav-link {{ request()->routeIs('admin.resource.view') || request()->routeIs('admin.resource.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav5" data-bs-toggle="collapse" href="#">
             @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
-                <i class="fas fa-users"></i><span >Resources</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fas fa-book"></i><span >Resources</span><i class="bi bi-chevron-down ms-auto"></i>
             @endif
         </a>
         <ul id="charts-nav5" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -364,7 +364,7 @@
     <li class="nav-item ">
         <a class="nav-link {{ request()->routeIs('admin.destination.view') || request()->routeIs('admin.destination.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav15" data-bs-toggle="collapse" href="#">
             @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
-                <i class="fas fa-users"></i><span >Destinations</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fas fa-map-marker"></i><span >Destinations</span><i class="bi bi-chevron-down ms-auto"></i>
             @endif
         </a>
         <ul id="charts-nav15" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -390,7 +390,7 @@
     <li class="nav-item ">
         <a class="nav-link {{ request()->routeIs('admin.course.view') || request()->routeIs('admin.course.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav6" data-bs-toggle="collapse" href="#">
             @if(in_array('add_user', $permissions) || in_array('manage_user', $permissions) || Auth::user()->user_type== 2 )
-                <i class="fas fa-users"></i><span >Courses</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fas fa-graduation-cap"></i><span >Courses</span><i class="bi bi-chevron-down ms-auto"></i>
             @endif
         </a>
         <ul id="charts-nav6" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -417,7 +417,7 @@
     <li class="nav-item">
     <a class="nav-link {{ request()->routeIs('counsellor.view') || request()->routeIs('counsellor.all') ? 'text-primary' : '' }} collapsed" data-bs-target="#charts-nav2" data-bs-toggle="collapse" href="#">
     @if(in_array('add_counsellor', $permissions) || in_array('manage_counsellor', $permissions) || Auth::user()->user_type== 2 )
-      <i class="fas fa-users-cog"></i><span>Counsellors</span><i class="bi bi-chevron-down ms-auto"></i>
+      <i class="fas fa-user"></i><span>Counsellors</span><i class="bi bi-chevron-down ms-auto"></i>
       @endif
     </a>
     <ul id="charts-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">

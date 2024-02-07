@@ -1,0 +1,260 @@
+.application-header-box {
+  margin: 8rem 10rem;
+}
+
+.application-header {
+  border-bottom: 1px solid hwb(0 3% 97% / 0.27);
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+}
+
+.application-header a {
+  font-size: 2rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #1a77e5;
+}
+
+.msg-container {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.msg-text {
+  width: 55%;
+}
+
+.msg-partner h6 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #bec1cb;
+  text-align: center;
+  display: block;
+  margin-bottom: 2rem;
+}
+
+
+.msg-message {
+  border-radius: 2.5px;
+  background-color: #fafafa;
+  padding: 3rem 4rem;
+  width: 90%;
+}
+
+.msg-message h5 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #171717;
+  margin-bottom: 2rem;
+}
+
+.msg-message p {
+  font-size: 1.2rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.5rem;
+  letter-spacing: normal;
+  text-align: left;
+  color: #171717;
+}
+
+.msg-me {
+  margin-top: 3rem;
+  text-align: right;
+  margin-bottom: 4rem;
+}
+
+.msg-me h5 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #171717;
+  margin-bottom: .8rem;
+}
+
+.msg-me p {
+  font-size: 1.3rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #171717;
+}
+
+
+
+.msg-input textarea {
+  border-radius: 2.5px;
+  background-color: #eef0f6;
+  width: 100%;
+  font-family: 'Epilogue', sans-serif;
+  margin-top: 5rem;
+  outline: none;
+  border: none;
+  padding-top: 3rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #969696;
+}
+
+.msg-btn {
+  text-align: right;
+  margin-top: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.msg-btn a {
+  padding: 1.2rem 5rem;
+  border-radius: 18px;
+  background-color: #000;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+}
+
+.msg-btn img {
+  width: 3rem;
+  margin-right: 1.6rem;
+}
+
+.msg-profile {
+  width: 25%;
+  padding: 3rem 5rem;
+  border-radius: 15.5px;
+  border: solid 0.5px #969696;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+}
+
+.msg-profile h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.74;
+  letter-spacing: normal;
+  text-align: center;
+  color: #080808;
+}
+
+.msg-profile p {
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.3;
+  letter-spacing: normal;
+  text-align: center;
+  color: #080808;
+  margin-top: .4rem;
+}
+
+.msg-profile h4 {
+  font-size: 1.6rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #1a77e5;
+  margin-bottom: 5rem;
+  margin-top: 6rem;
+}
+
+.pro-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #080808;
+  padding: 1.3rem;
+  border-radius: 18px;
+  width: 90%;
+}
+
+.pro-link img {
+  width: 2rem;
+  margin-right: 1rem;
+}
+
+.pro-link span {
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #080808;
+  margin-top: .5rem;
+  display: inline-block;
+}
+
+.message-flow {
+  padding-right: 2rem;
+  overflow-y: scroll;
+  height: 250px;
+}
+
+
+.message-flow::-webkit-scrollbar {
+  width: 8px;
+}
+
+.message-flow::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+.message-flow::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+#file-input {
+  color: #000;
+}
+
+#file-name {
+  margin-top: 2rem;
+  line-height: 1.7rem;
+  display: inline-block;
+}
