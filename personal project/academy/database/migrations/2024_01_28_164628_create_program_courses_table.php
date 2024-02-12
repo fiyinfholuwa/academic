@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('about')->nullable();
             $table->text('why')->nullable();
+            $table->text('level')->nullable();
             $table->string('entry_score')->nullable();
             $table->string('entry_score2')->nullable();
             $table->string('duration')->nullable();

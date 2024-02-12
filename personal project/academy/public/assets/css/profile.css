@@ -61,9 +61,9 @@
   display: none;
 }
 
-.profile-btn {
-  display: none;
-}
+/*.profile-btn {*/
+/*  display: none;*/
+/*}*/
 
 .profile-btn a {
   font-size: 1.5rem;
@@ -297,6 +297,10 @@
 }
 
 .track {
+  /*background-color: #000;*/
+  color: #fff !important;
+}
+.track_app {
   background-color: #000;
   color: #fff !important;
 }

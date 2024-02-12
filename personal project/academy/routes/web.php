@@ -146,10 +146,15 @@ Route::middleware('auth')->group(function () {
             Route::post('counsellor/application/chat/save', 'counsellor_application_chat_save')->name('counsellor.application.chat.save');
         });
 
-
-
         Route::controller(UserController::class)->group(function () {
             Route::get('/profile', 'profile')->name('profile');
+            Route::get('/user/application', 'user_application')->name('user.application');
+            Route::post('/user/application/save', 'user_application_save')->name('user.application.save');
+            Route::get('/user/application/edit/{id}', 'user_application_edit')->name('user.application.edit');
+            Route::post('/user/application/edit/{id}', 'user_application_edite')->name('user.application.edit');
+            Route::get('/user/track/{id}', 'user_track')->name('user.track');
+            Route::get('/user/chat/{id}', 'user_chat')->name('user.chat');
+            Route::post('/user/chat/add/{id}', 'user_chat_add')->name('user.chat.add');
         });
 
 
@@ -160,6 +165,8 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/courses', 'courses')->name('courses');
     Route::get('/courses/{name}', 'courses_category')->name('courses.category');
+    Route::get('/courses/general/search', 'courses_general_search')->name('courses.general.search');
+    Route::get('/faq/general/search', 'ask_general_search')->name('faq.general.search');
     Route::get('/courses/detail/{title}', 'courses_detail')->name('courses.detail');
     Route::get('/destination/detail/{id}', 'destination_detail')->name('destination.detail');
     Route::get('/resources', 'resources')->name('resources');

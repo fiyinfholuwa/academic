@@ -32,6 +32,18 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
+    public function userlogin(LoginRequest $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (auth()->attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return response()->json(['success' => true, 'redirect' => RouteServiceProvider::HOME]);
+        }
+
+        return response()->json(['success' => false, 'errors' => 'Invalid credentials.']);
+    }
     /**
      * Destroy an authenticated session.
      */

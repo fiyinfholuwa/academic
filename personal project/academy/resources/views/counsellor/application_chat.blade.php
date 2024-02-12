@@ -3,7 +3,7 @@
 @extends('counsellor.app')
 
 @section('content')
-  
+
   <main id="main" class="main">
 
   <section class="section">
@@ -14,19 +14,24 @@
             <div class="card-body">
               <h5 class="card-title">Chat with Application ID <span class="text-danger">{{$app->app_uid}}</span></h5>
               <div class="card">
-        
+
               <form class="row g-3" method="post" action="{{route('counsellor.application.chat.save')}}" enctype="multipart/form-data">
                 @csrf
                 @if(count($chats) > 0)
                 @foreach($chats as $chat)
 
                 <div class="container {{$chat->user_type == 'counsellor' ? 'darker' : ''}}">
+                    @if($chat->pdf !==null)
+                        <a href="{{asset($chat->pdf)}}" download class="badge bg-primary">download file</a>
+                    @endif
                     <img src="{{$chat->user_type == 'counsellor' ? 'https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg' : 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI='}}" class="{{$chat->user_type == 'counsellor' ? 'right' : ''}}" alt="Avatar">
-                    <p>{{$chat->message}}</p>
+                    <p>{{$chat->message}}</p> <br>
                     <span class="{{$chat->user_type == 'counsellor' ? 'time-right' : 'time-left'}}">11:00</span>
+
                 </div>
 
-                    
+
+
                     @endforeach
                     @else
 
@@ -51,7 +56,7 @@
                 </div>
               </form><!-- End Multi Columns Form -->
 
-             
+
             </div>
           </div>
 
@@ -118,4 +123,3 @@
 
   </main><!-- End #main -->
 @endsection
-  

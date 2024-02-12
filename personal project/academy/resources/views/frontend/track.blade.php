@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/bsc.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/profile.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/getstarted.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/resources.css')}}">
+
     <link rel="stylesheet" href="{{asset('assets/css/tips.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/application.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css')}}">
@@ -31,6 +33,7 @@
 
     <title>Academy Frontend</title>
 </head>
+<body>
 
 <header>
     <nav class="nav-section">
@@ -115,91 +118,66 @@
 
     @endauth
 </header>
+<div class="application-header-box">
+    <div class="application-header">
+        <a href="{{route('profile')}}">
+            > Back To Applications List</a>
+    </div>
+</div>
 
 <section>
-    <div class="get-container">
-        <div class="get-left">
-            <a href="{{route('faq')}}">AskGPT > {{$ask_info->ask_name}}</a>
-            <h2>{{$ask_info->ask_name}}</h2>
-
-            @if(count($asks) > 0)
-                <div class="get-started">
-                    @foreach($asks as $ask)
-                        <div class="get-step">
-                            <h3>{{$ask->question}}</h3>
-                            <p>{{$ask->answer}}</p>
-                        </div>
-
-                    @endforeach
-
-                </div>
-            @else
-                <h3 style="margin-top: 100px; margin-left:10px; font-weight: 500;" class="text-danger" >
-                    No Result Found
-                </h3>
-            @endif
-
-        </div>
-
-        <div class="get-right">
-            <h6>Next in step</h6>
-            @if($ask_info->ask_code == "started")
-                <a href="{{route('ask.details', "benefit")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/benefit.svg')}}" alt="">
-                        <h5>Benefits</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code =="benefit")
-                <a href="{{route('ask.details', "requirements")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/reqr.svg')}}" alt="">
-                        <h5>Requirements</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code =="requirements")
-                <a href="{{route('ask.details', "eligibility")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/elig.svg')}}" alt="">
-                        <h5>Eligibility</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code =="eligibility")
-                <a href="{{route('ask.details', "work")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/work-study.svg')}}" alt="">
-                        <h5>Work</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code == "work")
-                <a href="{{route('ask.details', "communication")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/comm.svg')}}" alt="">
-                        <h5>communication</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code == "communication")
-                <a href="{{route('ask.details', "started")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/get-s.svg')}}" alt="">
-                        <h5>Get Started</h5>
-                    </div>
-                </a>
-            @endif
-
-            <div class="get-more">
-                <h5>Have More
-                    Question
-                    Still?</h5>
-                <a href="#"><img src="{{asset('assets/image/support.svg')}}" alt=""> <span>Get Free Support</span></a>
-            </div>
-        </div>
+    <div class="track-app-support">
+        <h3>Application Tracking</h3>
+        <a href="#" class="track-link">
+            <img src="{{asset('assets/image/support.svg')}}" alt=""> <span>Contact Support</span>
+        </a>
     </div>
+    <div class="msg-container track-contain">
+        <div class="msg-text track-tracking">
+            <h4 class="id-head">Application ID: 23453463</h4>
+            <ul class="track">
+                <li class="{{optional($application->status_name)->name == "mentoring" ||optional($application->status_name)->name == "payment" || optional($application->status_name)->name =="in review" || optional($application->status_name)->name =="confirmation" || optional($application->status_name)->name=="completed" ? "active_status" : ""}} {{optional($application->status_name)->name == "mentoring" ||optional($application->status_name)->name == "payment" || optional($application->status_name)->name =="in review" || optional($application->status_name)->name =="confirmation" || optional($application->status_name)->name=="completed" ? "done" : ""}}">
+                    <p>Mentoring</p>
+                </li>
+                <li class="{{optional($application->status_name)->name == "payment" || optional($application->status_name)->name =="in review" || optional($application->status_name)->name =="confirmation" || optional($application->status_name)->name=="completed" ? "active_status" : ""}}  {{optional($application->status_name)->name == "payment" || optional($application->status_name)->name =="in review" || optional($application->status_name)->name =="confirmation" || optional($application->status_name)->name=="completed" ? "done" : ""}}  ">
+                    <p>Payment</p>
+                </li>
+                <li class="{{optional($application->status_name)->name =="in review" || optional($application->status_name)->name =="confirmation" || optional($application->status_name)->name=="completed" ? "active_status" : ""}} {{optional($application->status_name)->name =="in review" || optional($application->status_name)->name =="confirmation" || optional($application->status_name)->name=="completed" ? "done" : ""}}">
+                    <p>In Review</p>
+                </li>
+                <li class="{{optional($application->status_name)->name =="confirmation" || optional($application->status_name)->name=="completed" ? "active_status" : ""}}  {{optional($application->status_name)->name =="confirmation" || optional($application->status_name)->name=="completed" ? "done" : ""}}">
+                    <p>Confirmation</p>
 
+                </li>
+                <li class="{{optional($application->status_name)->name=="completed" ? "active_status" : ""}}  {{optional($application->status_name)->name=="completed" ? "done" : ""}}">
+                    <p>Complete</p>
+                </li>
+            </ul>
+        </div>
+        @if($application->assigned_id == null)
+            <div class="track-profile">
+                <h4>Counsellor Assigned</h4>
+                <img src="{{asset('assets/image/img11.jpg')}}" alt="" class="user-img">
+                <h3>Not Assigned Yet</h3>
+            </div>
+        @else
+            <div class="track-profile">
+                <h4>Counsellor Assigned</h4>
+                <img src="{{asset('assets/image/img11.jpg')}}" alt="" class="user-img">
+                <h3>{{optional($application->counsellor_name)->first_name}}  {{optional($application->counsellor_name)->last_name}}</h3>
+                {{--                    <p>ASUF University</p>--}}
+
+                <a href="{{route('user.chat', $application->id)}}" class="profile-link">
+                    Message
+                </a>
+            </div>
+        @endif
+
+    </div>
 </section>
 @include('frontend.common_footer')
 <!-- consultation page............................ -->
-@include('frontend.common_extra_modal')
+
 <script src=" https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -208,6 +186,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+@include('frontend.common_extra_modal')
 </body>
 <script>
 

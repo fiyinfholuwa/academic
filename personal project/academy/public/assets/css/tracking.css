@@ -64,7 +64,7 @@
   z-index: 1;
 }
 
-.track li:first-child::before {
+.track .done::before {
   content: '\2713';
   border: solid 3px #83bf4e;
   font-size: 30px;
@@ -73,7 +73,7 @@
 
 }
 
-.track li:nth-child(2)::before {
+.track .active_status::before {
   border: 8px solid #83bf4e;
 }
 

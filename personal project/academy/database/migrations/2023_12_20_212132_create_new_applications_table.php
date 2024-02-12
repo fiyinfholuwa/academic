@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('app_uid', 200)->nullable();
             $table->string('email', 200)->nullable();
             $table->string('mobile', 100)->nullable();
+            $table->string('dob', 100)->nullable();
+            $table->string('course', 255)->nullable();
+            $table->string('country', 255)->nullable();
+            $table->string('year', 100)->nullable();
             $table->text('gre_score')->nullable();
             $table->text('previous_work', 100)->nullable();
             $table->text('certification', 100)->nullable();

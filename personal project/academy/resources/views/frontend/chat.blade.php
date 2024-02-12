@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/bsc.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/profile.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/getstarted.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/resources.css')}}">
+
     <link rel="stylesheet" href="{{asset('assets/css/tips.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/application.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css')}}">
@@ -31,6 +33,7 @@
 
     <title>Academy Frontend</title>
 </head>
+<body>
 
 <header>
     <nav class="nav-section">
@@ -115,91 +118,118 @@
 
     @endauth
 </header>
+<div class="application-header-box">
+    <div class="application-header">
+        <a href="{{route('profile')}}">
+            < Back To Applications List</a>
+    </div>
+</div>
 
 <section>
-    <div class="get-container">
-        <div class="get-left">
-            <a href="{{route('faq')}}">AskGPT > {{$ask_info->ask_name}}</a>
-            <h2>{{$ask_info->ask_name}}</h2>
+    <div class="msg-container">
+        <div class="msg-text">
+            <div class="msg-partner">
+                <div class="message-flow">
+                    @if(count($chats) > 0)
 
-            @if(count($asks) > 0)
-                <div class="get-started">
-                    @foreach($asks as $ask)
-                        <div class="get-step">
-                            <h3>{{$ask->question}}</h3>
-                            <p>{{$ask->answer}}</p>
-                        </div>
+                        @php
+                            $groupedChats = collect($chats)->groupBy(function ($chat) {
+                                return \Carbon\Carbon::parse($chat['created_at'])->format('Y-m-d');
+                            });
+                        @endphp
 
-                    @endforeach
+                        @foreach ($groupedChats as $date => $chats)
+                            @php
+                                $chatDate = \Carbon\Carbon::parse($date);
+                                $today = \Carbon\Carbon::now();
+                                $yesterday = \Carbon\Carbon::yesterday();
+                            @endphp
+
+                            @if ($chatDate->isSameDay($today))
+                                <h6>Today</h6>
+                            @elseif ($chatDate->isSameDay($yesterday))
+                                <h6>Yesterday</h6>
+                            @else
+                                <h6>{{ $chatDate->format('F j, Y') }}</h6>
+                            @endif
+
+                            @foreach ($chats as $chat)
+                                <div class="{{ $chat['user_type'] == 'counsellor' ? 'msg-message' : 'msg-me' }}">
+                                    <h5>{{ $chat['user_type'] == 'counsellor' ? 'counsellor' : 'me' }}</h5>
+                                    <p>{{ $chat['message'] }}</p>
+                                    @if($chat->pdf !==null)
+                                        <a style="font-size: 10px" href="{{asset($chat->pdf)}}" download class="badge bg-primary">download file</a>
+                                    @endif
+                                </div>
+                            @endforeach
+                        @endforeach
+                    @else
+
+                    @endif
 
                 </div>
-            @else
-                <h3 style="margin-top: 100px; margin-left:10px; font-weight: 500;" class="text-danger" >
-                    No Result Found
-                </h3>
-            @endif
-
-        </div>
-
-        <div class="get-right">
-            <h6>Next in step</h6>
-            @if($ask_info->ask_code == "started")
-                <a href="{{route('ask.details', "benefit")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/benefit.svg')}}" alt="">
-                        <h5>Benefits</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code =="benefit")
-                <a href="{{route('ask.details', "requirements")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/reqr.svg')}}" alt="">
-                        <h5>Requirements</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code =="requirements")
-                <a href="{{route('ask.details', "eligibility")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/elig.svg')}}" alt="">
-                        <h5>Eligibility</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code =="eligibility")
-                <a href="{{route('ask.details', "work")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/work-study.svg')}}" alt="">
-                        <h5>Work</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code == "work")
-                <a href="{{route('ask.details', "communication")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/comm.svg')}}" alt="">
-                        <h5>communication</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code == "communication")
-                <a href="{{route('ask.details', "started")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/get-s.svg')}}" alt="">
-                        <h5>Get Started</h5>
-                    </div>
-                </a>
-            @endif
-
-            <div class="get-more">
-                <h5>Have More
-                    Question
-                    Still?</h5>
-                <a href="#"><img src="{{asset('assets/image/support.svg')}}" alt=""> <span>Get Free Support</span></a>
             </div>
-        </div>
-    </div>
+            <div class="msg-input">
+                <form action="{{route('user.chat.add', $application->id)}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <textarea  style="padding: 20px; border: 1px solid #D3D2D2" id="w3review" name="message" rows="10" cols="50" placeholder=" Enter your message"></textarea>
+                    <div class="msg-btn">
+                        <label for="file-input">
+                            <img src="{{asset('assets/image/attachment.svg')}}" alt="Attachment">
+                        </label>
 
+                        <input type="hidden" value="{{$application->id}}" name="app_id">
+                        <input name="pdf" type="file" id="file-input" style="display: none;">
+                        <div id="file-preview-container">
+                            <img id="file-preview" src="#" alt="File Preview" style="display: none;">
+                        </div>
+                        <button type="submit" style="padding: 5px 30px;border-radius: 10px; background-color: #0a0909;color: #fff; font-size: 20px;border: none" class="">Send</button>
+                    </div>
+                    <span id="file-name"></span>
+            </div>
+
+        </div>
+        </form>
+        <div class="msg-profile">
+            <img src="{{asset('assets/image/img11.jpg')}}" alt="" class="user-img">
+            <h3>{{optional($application->counsellor_name)->first_name}}  {{optional($application->counsellor_name)->last_name}}</h3>
+            {{--                <p>ASUF University</p>--}}
+            <h4>Assigned Counsellor</h4>
+            <a href="#" class="pro-link">
+                <img src="{{asset('assets/image/support.svg')}}" alt=""> <span>Contact Support</span>
+            </a>
+        </div>
+
+    </div>
 </section>
+<script>
+    document.getElementById('file-input').addEventListener('change', function (e) {
+        var fileInput = e.target;
+        var filePreviewContainer = document.getElementById('file-preview-container');
+        var filePreview = document.getElementById('file-preview');
+
+        if (fileInput.files.length > 0) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                filePreview.src = e.target.result;
+                filePreview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+            filePreviewContainer.style.display = 'block';
+        } else {
+            filePreview.src = '#';
+            filePreview.style.display = 'none';
+            filePreviewContainer.style.display = 'none';
+        }
+    });
+</script>
+
+
 @include('frontend.common_footer')
 <!-- consultation page............................ -->
-@include('frontend.common_extra_modal')
+
 <script src=" https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -208,6 +238,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+@include('frontend.common_extra_modal')
 </body>
 <script>
 
@@ -392,5 +423,27 @@
         }
     }
 
+
+    document.getElementById('file-input').addEventListener('change', function (e) {
+        var fileInput = e.target;
+        var filePreviewContainer = document.getElementById('file-preview-container');
+        var filePreview = document.getElementById('file-preview');
+
+        if (fileInput.files.length > 0) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                filePreview.src = e.target.result;
+                filePreview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+            filePreviewContainer.style.display = 'block';
+        } else {
+            filePreview.src = '#';
+            filePreview.style.display = 'none';
+            filePreviewContainer.style.display = 'none';
+        }
+    });
 </script>
 </html>

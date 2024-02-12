@@ -67,7 +67,7 @@
                   </div>
 
 
-                  <div class="col-md-12 col-lg-12">
+                  <div class="col-md-12 col-lg-6">
                   <label for="inputCity" class="form-label">Course Category</label>
                   <select required name="course_id" class="form-control">
                       <option value="">Select Course</option>
@@ -81,6 +81,22 @@
                   @enderror
                   </p>
                 </div>
+
+
+                  <div class="col-md-12 col-lg-6">
+                      <label for="inputCity" class="form-label">Educational Category</label>
+                      <select required name="level" class="form-control">
+                          <option value="">Select Levels</option>
+                          @foreach($levels as $level)
+                              <option value="{{$level->id}}">{{$level->level_name}}</option>
+                          @endforeach
+                      </select>
+                      <p style="font-weight:bold; color:red; font-size:12px;">
+                          @error('level')
+                          {{$message}}
+                          @enderror
+                      </p>
+                  </div>
 
                   <div class="col-md-6 col-lg-12">
                       <label for="inputName5" class="form-label">More Information about the Course</label>

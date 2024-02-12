@@ -31,6 +31,7 @@
 
     <title>Academy Frontend</title>
 </head>
+<body>
 
 <header>
     <nav class="nav-section">
@@ -116,87 +117,48 @@
     @endauth
 </header>
 
-<section>
-    <div class="get-container">
-        <div class="get-left">
-            <a href="{{route('faq')}}">AskGPT > {{$ask_info->ask_name}}</a>
-            <h2>{{$ask_info->ask_name}}</h2>
-
-            @if(count($asks) > 0)
-                <div class="get-started">
-                    @foreach($asks as $ask)
-                        <div class="get-step">
-                            <h3>{{$ask->question}}</h3>
-                            <p>{{$ask->answer}}</p>
-                        </div>
-
+<section id="askgpt">
+    <div class="ask-container">
+        <h2 class="course-head">Find a Course</h2>
+        <form action="{{route('courses.general.search')}}" method="get">
+            <div class="find-course">
+                <select name="level" id="course">
+                    <option value="">Select category</option>
+                    @foreach($levels as $level)
+                        <option value="{{$level->id}}">{{$level->level_name}}</option>
                     @endforeach
-
-                </div>
-            @else
-                <h3 style="margin-top: 100px; margin-left:10px; font-weight: 500;" class="text-danger" >
-                    No Result Found
-                </h3>
-            @endif
-
-        </div>
-
-        <div class="get-right">
-            <h6>Next in step</h6>
-            @if($ask_info->ask_code == "started")
-                <a href="{{route('ask.details', "benefit")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/benefit.svg')}}" alt="">
-                        <h5>Benefits</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code =="benefit")
-                <a href="{{route('ask.details', "requirements")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/reqr.svg')}}" alt="">
-                        <h5>Requirements</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code =="requirements")
-                <a href="{{route('ask.details', "eligibility")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/elig.svg')}}" alt="">
-                        <h5>Eligibility</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code =="eligibility")
-                <a href="{{route('ask.details', "work")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/work-study.svg')}}" alt="">
-                        <h5>Work</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code == "work")
-                <a href="{{route('ask.details', "communication")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/comm.svg')}}" alt="">
-                        <h5>communication</h5>
-                    </div>
-                </a>
-            @elseif($ask_info->ask_code == "communication")
-                <a href="{{route('ask.details', "started")}}">
-                    <div class="get-benefit">
-                        <img src="{{asset('assets/image/get-s.svg')}}" alt="">
-                        <h5>Get Started</h5>
-                    </div>
-                </a>
-            @endif
-
-            <div class="get-more">
-                <h5>Have More
-                    Question
-                    Still?</h5>
-                <a href="#"><img src="{{asset('assets/image/support.svg')}}" alt=""> <span>Get Free Support</span></a>
+                </select>
+                <input  name="search" type="text" placeholder="Search Course...">
+                <button type="submit">Find Course</button>
             </div>
-        </div>
-    </div>
+        </form>
 
+    </div>
 </section>
+<section>
+    <div class="ask-list">
+        @if(count($courses) > 0)
+            @foreach($courses as $course)
+                <a href="{{route('courses.detail', $course->slug)}}">
+                    <div class="bachelor">
+                        <h3>{{$course->title}}</h3>
+                        <p>{{ Str::limit($course->description, 100) }}</p>
+                        <h4>Duration: {{$course->duration}} Year(s)</h4>
+                        <h6>Entry score: {{$course->entry_score}} IELTS
+                        </h6>
+                    </div>
+                </a>
+            @endforeach
+
+        @else
+            <div>
+                <h3 style="color: red; font-weight: 700; margin-top: 50px; margin-left: 100px">No Course(s) Found</h3>
+            </div>
+        @endif
+
+    </div>
+</section>
+
 @include('frontend.common_footer')
 <!-- consultation page............................ -->
 @include('frontend.common_extra_modal')

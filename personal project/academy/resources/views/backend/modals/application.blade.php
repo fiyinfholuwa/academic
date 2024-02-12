@@ -21,7 +21,7 @@
                     @endforeach
                   </select>
                 </div>
-                
+
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -54,11 +54,11 @@
                     @endforeach
                   </select>
                 </div>
-                
+
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                       
+
                         <button type="submit" class="btn btn-success">Change Application Status
                         </button>
                     </div>
@@ -67,7 +67,7 @@
                 </form>
               </div><!-- End Disabled Animation Modal-->
 
-           
+
 
               <div class="modal" id="app_delete_{{$app->id}}" tabindex="-1">
                 <form method="post" action="{{route('admin.application.delete', $app->id)}}">

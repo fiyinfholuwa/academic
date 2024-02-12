@@ -186,15 +186,15 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
   <li class="nav-item">
-    <a class="nav-link " href="{{route('counsellor.dashboard')}}">
-      <i class="bi bi-grid"></i>
+    <a class="nav-link {{ request()->routeIs('counsellor.dashboard') ? 'text-primary' : '' }}"  href="{{route('counsellor.dashboard')}}">
+      <i class="fa fa-tachometer"></i>
       <span>Dashboard</span>
     </a>
   </li><!-- End Dashboard Nav -->
 
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="{{route('counsellor.application.assigned')}}">
+    <a class="nav-link collapsed {{ request()->routeIs('counsellor.application.assigned') ? 'text-primary' : '' }}" href="{{route('counsellor.application.assigned')}}">
       <i class="fab fa-windows"></i>
       <span>Assigned Applications</span>
     </a>
@@ -203,7 +203,7 @@
 
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="{{route('counsellor.profile.view')}}">
+    <a class="nav-link collapsed {{ request()->routeIs('counsellor.profile.view') ? 'text-primary' : '' }}" href="{{route('counsellor.profile.view')}}">
       <i class="fas fa-user-edit"></i>
       <span>Profile</span>
     </a>

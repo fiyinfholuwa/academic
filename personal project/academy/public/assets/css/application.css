@@ -6,10 +6,11 @@
   border-bottom: 1px solid hwb(0 3% 97% / 0.27);
   padding-bottom: 3rem;
   margin-bottom: 3rem;
+    font-size: 12px ;
 }
 
 .application-header a {
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;

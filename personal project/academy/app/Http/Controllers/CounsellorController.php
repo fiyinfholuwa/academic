@@ -32,9 +32,9 @@ class CounsellorController extends Controller
             'current_password' => 'required',
             'password' => 'required|confirmed|min:8',
         ]);
-    
+
         $user = auth()->user();
-    
+
         $notification = array(
             'message' => 'The current password is incorrect.',
             'alert-type' => 'error'
@@ -50,11 +50,11 @@ class CounsellorController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
-    
+
     }
 
     public function counsellor_application_assigned(){
-        $applications = NewApplication::where('assigned_id', '=', Auth::user()->id);
+        $applications = NewApplication::where('assigned_id', '=', Auth::user()->id)->get();
         $counsellors = User::where('user_type', '=', 1)->get();
         $statuses = Status::all();
         return view('counsellor.application_all', compact('applications', 'counsellors', 'statuses'));

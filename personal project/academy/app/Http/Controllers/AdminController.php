@@ -7,6 +7,7 @@ use App\Models\AskGpt;
 use App\Models\Country;
 use App\Models\CourseCategory;
 use App\Models\Destination;
+use App\Models\EducationalLevel;
 use App\Models\ProgramCourse;
 use App\Models\ResourceBook;
 use App\Models\Testimonial;
@@ -1181,13 +1182,15 @@ class AdminController extends Controller
 
     public function admin_course_view(){
         $courses = CourseCategory::all();
-        return view('backend.course_view', compact('courses'));
+        $levels = EducationalLevel::all();
+        return view('backend.course_view', compact('courses', 'levels'));
     }
 
     public function admin_course_edit($id){
         $courses = CourseCategory::all();
         $course = ProgramCourse::findOrFail($id);
-        return view('backend.course_edit', compact('courses', 'course'));
+        $levels = EducationalLevel::all();
+        return view('backend.course_edit', compact('courses', 'course', 'levels'));
     }
 
     public function admin_course_save(Request $request){
@@ -1207,6 +1210,7 @@ class AdminController extends Controller
         $course->description= $request->description;
         $course->duration= $request->duration;
         $course->entry_score= $request->entry_score;
+        $course->level= $request->level;
         $course->entry_score2= $request->entry_score2;
         $course->about= $request->about;
         $course->slug= $label_slug;
@@ -1238,6 +1242,7 @@ class AdminController extends Controller
         $course->title= $request->title;
         $course->description= $request->description;
         $course->duration= $request->duration;
+        $course->level= $request->level;
         $course->entry_score= $request->entry_score;
         $course->entry_score2= $request->entry_score2;
         $course->about= $request->about;
