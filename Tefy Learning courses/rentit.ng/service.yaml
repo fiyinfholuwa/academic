@@ -1,0 +1,75 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/ingress-status: all
+  labels:
+    cloud.googleapis.com/location: us-central1
+  name: rentita1
+  namespace: '412838477713'
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: '3'
+        run.googleapis.com/client-name: gcloud
+        run.googleapis.com/client-version: 466.0.0
+        run.googleapis.com/startup-cpu-boost: 'true'
+      labels:
+        client.knative.dev/nonce: lpawngkyzg
+        run.googleapis.com/startupProbeType: Default
+    spec:
+      containerConcurrency: 80
+      containers:
+      - env:
+        - name: APP_DEBUG
+          value: 'false'
+        - name: APP_ENV
+          value: 'production'
+        - name: APP_KEY
+          value: 'base64:SvCbxS6699yQTSfngWtbGhQIN4VqsYd4P6vNHvrbP10='
+        - name: APP_NAME
+          value: 'Rentit'
+        - name: VITE_APP_NAME
+          value: 'Rentit'
+        - name: DB_CONNECTION
+          value: 'mysql'
+        - name: DB_DATABASE
+          value: 'freedb_rentit'
+        - name: DB_HOST
+          value: 'sql.freedb.tech'
+        - name: DB_PASSWORD
+          value: 'K?2nCj@2!PgdnqQ'
+        - name: DB_PORT
+          value: '3306'
+        - name: DB_USERNAME
+          value: 'freedb_rentitu'
+        - name: PROJECT_ID
+          value: 'rentit-416303'
+        - name: APP_URL
+          value: 'https://rentita1-ztl2fpyjna-uc.a.run.app'
+        - name: ASSET_URL
+          value: 'https://rentita1-ztl2fpyjna-uc.a.run.app'
+        - name: VITE_ASSET_URL
+          value: 'https://rentita1-ztl2fpyjna-uc.a.run.app'
+        image: gcr.io/rentit-416303/rentita1
+        name: rentita1-1
+        ports:
+        - containerPort: 8080
+          name: http1
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 256Mi
+        startupProbe:
+          failureThreshold: 1
+          periodSeconds: 240
+          tcpSocket:
+            port: 8080
+          timeoutSeconds: 240
+      serviceAccountName: 412838477713-compute@developer.gserviceaccount.com
+      timeoutSeconds: 300
+  traffic:
+  - latestRevision: true
+    percent: 100

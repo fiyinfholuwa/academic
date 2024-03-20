@@ -1,0 +1,42 @@
+steps:
+  # build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build', 
+    '-t', 
+    'gcr.io/$PROJECT_ID/rentita1',
+    '--progress',
+    'plain',
+    '--no-cache',
+    '.'
+    ]
+  # push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/rentita1']
+  # Deploy container image to Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: [
+    'beta',
+    'run',
+    'deploy',
+    '--allow-unauthenticated',
+    'rentita1',
+    '--image',
+    'gcr.io/$PROJECT_ID/rentita1',
+    '--region',
+    'us-central1',
+    '--platform',
+    'managed',
+    '--port', 
+    '8080',
+    '--memory',
+    '256Mi',
+    ]
+images:
+- gcr.io/$PROJECT_ID/rentita1
+
+options:
+    substitution_option: 'ALLOW_LOOSE'
+
+substitutions:
+    _APP_DEBUG: 'true'

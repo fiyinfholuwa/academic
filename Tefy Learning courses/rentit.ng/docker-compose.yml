@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+    main:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        command: bash -c "php artisan inertia:start-ssr && php artisan serve"
+        volumes:
+            - .:/app
+        ports:
+            - 8080:8080
